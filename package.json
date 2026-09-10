@@ -11,8 +11,8 @@
   },
   "scripts": {
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 8080",
-    "build": "node scripts/with-app-env.mjs vite build && npm run db:migrate",
-    "build:node": "NITRO_PRESET=node-server VITE_AUTH_ENABLED=false node scripts/with-app-env.mjs vite build && node scripts/copy-ssr-css.mjs",
+    "build": "node scripts/prod-build.mjs",
+    "build:node": "NITRO_PRESET=node-server VITE_AUTH_ENABLED=false node scripts/prod-build.mjs",
     "start:node": "node .output/server/index.mjs",
     "start": "node .output/server/index.mjs",
     "db:migrate": "node scripts/migrate.mjs",

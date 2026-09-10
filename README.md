@@ -2,9 +2,7 @@
 
 24 天、48 个 DJ 音标：书写、朗读、记忆。进度保存在浏览器本地，服务器不需要数据库。
 
-## 下载源码（不要走 Grok 预览）
-
-预览窗口无法下载 zip。请用 GitHub：
+## 下载源码
 
 **[点击下载 yinji-main.zip](https://github.com/jaydensho2008/yinji/archive/refs/heads/main.zip)**
 
@@ -13,35 +11,31 @@ https://github.com/jaydensho2008/yinji
 
 ---
 
-## 部署到 Hostinger（推荐：接 GitHub）
+## 部署到 Hostinger
 
-这是 **Node.js** 应用，不要丢进 `public_html` 当 WordPress / 静态站。
+这是 **Node.js / Nitro** 应用，不要丢进 `public_html` 当 WordPress / 静态站。
 
 1. 登录 [hPanel](https://hpanel.hostinger.com/)
 2. **Websites → Add Website → Node.js web app**
-3. 选 **Import from GitHub**（或 Git），授权后选仓库 `jaydensho2008/yinji`、分支 `main`
+3. 选 **Import from GitHub**，授权后选仓库 `jaydensho2008/yinji`、分支 `main`
 4. 填写：
 
 | 项 | 值 |
 |---|---|
 | Node.js | **22** |
-| 框架 | Other / Nitro |
-| Build script | `build:node` |
+| 框架 | **Nitro** |
+| Build script | `build` |
 | Output directory | `.output` |
-| Entry file | `.output/server/index.mjs` |
+| Entry file | `server/index.mjs` |
 | 环境变量 | `VITE_AUTH_ENABLED` = `false` |
+
+Entry file 相对输出目录 `.output`，填 `server/index.mjs`，**不要**填 `.output/server/index.mjs`。
 
 5. Deploy，等构建完成。先用 Hostinger 临时域名确认能打开。
 
 若这个域名已经建过 WordPress / 空站，先删掉再部署 Node 应用。
 
-### 若只能上传 zip
-
-1. 下载上面的 `yinji-main.zip`（不要解压后再零散拖进文件管理器）
-2. Node.js web app → **Upload your files** → 选这个 zip
-3. 其余设置同上
-
-**不要**在文件管理器里点开 zip 预览。Hostinger 文件管理器打不开 zip，会显示「加载文件时发生错误」。应使用 Web Apps 的上传/部署，或先解压再上传文件夹。
+GitHub 下载的 zip 里如果多一层 `yinji-main/`，把 **Root directory** 设成 `yinji-main`。
 
 ---
 
@@ -70,7 +64,7 @@ npm ci
 npm run dev
 ```
 
-生产构建（Hostinger / VPS 用这个，不要用 `npm run build`）：
+生产构建（Hostinger / VPS）：
 
 ```bash
 npm run build:node

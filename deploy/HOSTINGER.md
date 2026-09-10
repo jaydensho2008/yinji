@@ -2,25 +2,32 @@
 
 音迹是 Node 应用，不要当 WordPress / 静态站传到 `public_html`。用 hPanel 的 **Node.js web app（Web Apps）**。
 
+仓库：https://github.com/jaydensho2008/yinji  
+下载：https://github.com/jaydensho2008/yinji/archive/refs/heads/main.zip
+
 ## 一、先在 Hostinger 上架应用
 
 1. 登录 [hPanel](https://hpanel.hostinger.com/)
 2. **Websites** → **Add Website** → **Node.js web app**
-3. 选 **Upload your files**，上传 `yinji-hostinger.zip`（不要带 `node_modules`）
+3. 推荐 **Import from GitHub**，选 `jaydensho2008/yinji` 分支 `main`
 4. 部署设置请改成：
 
 | 项 | 填 |
 |---|---|
 | Node.js | **22** |
-| 框架 | **Other** 或 **Nitro** |
-| Build script | `build:node` |
+| 框架 | **Nitro** |
+| Build script | `build` |
 | Output directory | `.output` |
-| Entry file | `.output/server/index.mjs` |
+| Entry file | `server/index.mjs` |
 | 环境变量 | `VITE_AUTH_ENABLED` = `false` |
+
+Entry file 相对 **输出目录** `.output`，所以填 `server/index.mjs`，不要填 `.output/server/index.mjs`。
 
 5. 点 **Deploy**，等构建完成。先用 Hostinger 给的临时域名确认能打开。
 
 若这个域名已经在 Hostinger 建过网站（WordPress 空站也算），先删掉那个网站，再部署 Node 应用。
+
+GitHub zip 上传时，解压后如果多一层 `yinji-main/`，把 **Root directory** 设成 `yinji-main`。
 
 ## 二、接上 huanxuanhealthcare.tech
 
@@ -55,4 +62,5 @@
 
 - 不要把文件丢进 `public_html` 当静态站
 - 不要保留 Manus 的 CNAME
-- 不要用 `npm run build`（那是 Vercel 用的）；Hostinger 必须跑 `build:node`
+- 不要在文件管理器里点开 zip 预览
+- Nitro 的 Entry file 不要写成 `.output/server/index.mjs`
